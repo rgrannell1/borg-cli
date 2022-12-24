@@ -1,4 +1,4 @@
-import { API } from "../../../common-storage/src/client/api.ts";
+import { API } from "https://raw.githubusercontent.com/rgrannell1/common-storage/main/src/client/api.ts";
 import { BorgDB } from '../utils/db.ts';
 
 import { Event } from "../types.ts";
