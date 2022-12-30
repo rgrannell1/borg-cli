@@ -1,7 +1,6 @@
-
 import { DB } from "https://deno.land/x/sqlite/mod.ts";
 
-import { Event } from '../types.ts'
+import { Event } from "../types.ts";
 
 const tables = [
   `create table if not exists bookmarks (
@@ -34,17 +33,23 @@ export class BorgDB {
     if (typeof event.data === "string") {
       const content = JSON.parse(event.data);
       const { url, id, created_at } = content;
-      this.db.query(`insert or replace into bookmarks (id, url, created_at) values (?, ?, ?)`, [id, url, created_at]);
+      this.db.query(
+        `insert or replace into bookmarks (id, url, created_at) values (?, ?, ?)`,
+        [id, url, created_at],
+      );
     } else {
       const { url, id, created_at } = event.data;
-      this.db.query(`insert or replace into bookmarks (id, url, created_at) values (?, ?, ?)`, [id, url, created_at]);
+      this.db.query(
+        `insert or replace into bookmarks (id, url, created_at) values (?, ?, ?)`,
+        [id, url, created_at],
+      );
     }
   }
 
   getBookmarks() {
     return this.db.query(`select * from bookmarks`).map((row) => {
       return { id: row[0], url: row[1], created_at: row[2] };
-    })
+    });
   }
 
   getBookmarkCount(): number {
@@ -52,7 +57,9 @@ export class BorgDB {
   }
 
   getMaxId(): string | undefined {
-    const row = this.db.query(`select value from metadata where key = ?`, ["maxId"]);
+    const row = this.db.query(`select value from metadata where key = ?`, [
+      "maxId",
+    ]);
 
     if (row.length > 0) {
       return row[0][0] as string;
@@ -60,6 +67,9 @@ export class BorgDB {
   }
 
   updateMaxId(maxId: string): void {
-    this.db.query(`insert or replace into metadata (key, value) values (?, ?)`, ["maxId", maxId]);
+    this.db.query(
+      `insert or replace into metadata (key, value) values (?, ?)`,
+      ["maxId", maxId],
+    );
   }
 }

@@ -1,5 +1,5 @@
 import { API } from "https://raw.githubusercontent.com/rgrannell1/common-storage/main/src/client/api.ts";
-import { BorgDB } from '../utils/db.ts';
+import { BorgDB } from "../utils/db.ts";
 
 import { Event } from "../types.ts";
 
@@ -25,7 +25,6 @@ async function* getBookmarkEvents(db: BorgDB, startId?: string) {
   }
 }
 
-
 function addBookmark(db: BorgDB, event: Event, id: string) {
   db.createTables();
 
@@ -36,23 +35,26 @@ function addBookmark(db: BorgDB, event: Event, id: string) {
 const constants = {
   events: {
     add: "xyz.rgrannell.bookmark.add.v1",
-    addLegacy: 'xyz.rgrannell.cs.bookmark.add.v1'
-  }
-}
+    addLegacy: "xyz.rgrannell.cs.bookmark.add.v1",
+  },
+};
 
 export async function processEvents(fpath: string) {
   const db = new BorgDB(fpath);
   db.createTables();
 
-  const startId = db.getMaxId() ?? '0';
+  const startId = db.getMaxId() ?? "0";
 
   for await (const value of getBookmarkEvents(db, startId)) {
     const event = value.value;
 
-    if (event.type === constants.events.add || event.type === constants.events.addLegacy) {
+    if (
+      event.type === constants.events.add ||
+      event.type === constants.events.addLegacy
+    ) {
       addBookmark(db, event, value.id);
     } else {
-      console.error('unknown event', event)
+      console.error("unknown event", event);
     }
   }
 }

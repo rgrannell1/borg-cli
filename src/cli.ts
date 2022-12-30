@@ -7,6 +7,7 @@ import { borgSync } from "./commands/borg-sync.ts";
 import { borgList } from "./commands/borg-list.ts";
 import { borgStats } from "./commands/borg-stat.ts";
 import { borgExport } from "./commands/borg-export.ts";
+import { borgImport } from "./commands/borg-import.ts";
 
 export const CLI = `
 ${bold("borg")}
@@ -23,7 +24,8 @@ Show stats
 
 ${gray("---------------------------------------------")}
 ${
-  gray("borg sync") + cyan(" • ") + gray("borg list") + cyan(" • ") + gray("borg stats") + cyan(" • ") + gray("borg export")
+  gray("borg sync") + cyan(" • ") + gray("borg list") + cyan(" • ") +
+  gray("borg stats") + cyan(" • ") + gray("borg export")
 }
 `;
 
@@ -32,6 +34,7 @@ const commands: Record<string, any> = {
   list: borgList,
   stats: borgStats,
   export: borgExport,
+  import: borgImport,
 };
 
 const [command] = Deno.args;
