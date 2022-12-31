@@ -10,6 +10,14 @@ async function* getBookmarkEvents(db: BorgDB, startId?: string) {
     const res = await client.getContent("bookmarks", startId);
     const data = await res.json();
 
+    if (res.status !== 200) {
+      throw new Error(`status ${res.status}:\n` + JSON.stringify(data))
+    }
+
+    if (!data.content) {
+      throw new Error("invalid response:\n" + JSON.stringify(data));
+    }
+
     if (data.content.length === 0) {
       break;
     }
