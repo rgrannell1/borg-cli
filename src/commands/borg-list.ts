@@ -26,7 +26,7 @@ class Reporters {
     console.log([
       `id:     ${bold(bookmark.id)}`,
       `url:    ${cyan(bookmark.url)}`,
-      `domain: ${gray("https://" + domain)}`,
+      `domain: ${gray(domain)}`,
       "date:   " + bookmark.created_at,
       "",
     ].join("\n"));
