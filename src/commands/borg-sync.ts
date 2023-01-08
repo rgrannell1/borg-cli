@@ -11,7 +11,7 @@ async function* getBookmarkEvents(db: BorgDB, startId?: string) {
     const data = await res.json();
 
     if (res.status !== 200) {
-      throw new Error(`status ${res.status}:\n` + JSON.stringify(data))
+      throw new Error(`status ${res.status}:\n` + JSON.stringify(data));
     }
 
     if (!data.content) {

@@ -15,7 +15,13 @@ class Reporters {
     console.log(JSON.stringify(bookmark));
   }
   static verbose(bookmark: any) {
-    const domain = new URL(bookmark.url).hostname;
+    let domain
+    try {
+      const parsed = new URL(bookmark.url)
+      domain = `${parsed.protocol}//${parsed.hostname}`;
+    } catch (err) {
+      domain = "unknown"
+    }
 
     console.log([
       `id:     ${bold(bookmark.id)}`,
