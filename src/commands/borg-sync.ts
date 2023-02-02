@@ -3,7 +3,10 @@ import { BorgDB } from "../utils/db.ts";
 
 import { Event } from "../types.ts";
 
-const client = new API();
+const client = new API({
+  username: Deno.env.get("BORG_USER"),
+  password: Deno.env.get("BORG_PASSWORD")
+});
 
 async function* getBookmarkEvents(db: BorgDB, startId?: string) {
   while (true) {

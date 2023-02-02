@@ -7,7 +7,10 @@ import { API } from "https://raw.githubusercontent.com/rgrannell1/common-storage
 
 import { parseNdjson } from "https://deno.land/x/ndjson@v1.0.7/mod.ts";
 
-const client = new API();
+const client = new API({
+  username: Deno.env.get("BORG_USER"),
+  password: Deno.env.get("BORG_PASSWORD"),
+});
 
 export const BORG_IMPORT_CLI = `
 Usage:
@@ -36,9 +39,9 @@ class Transformers {
     const date = bookmark.date[0][0];
     const url = bookmark.url[0][0];
 
-    const unix = new Date(date).getTime()
+    const unix = new Date(date).getTime();
     const now = new Date();
-    const id =  `urn:bookmark:${unix}`;
+    const id = `urn:bookmark:${unix}`;
 
     return {
       source: "https://github.com/rgrannell1/borg/spec/bookmark.json",
@@ -51,8 +54,8 @@ class Transformers {
         id,
         url,
         created_at: date,
-      })
-    }
+      }),
+    };
   }
 }
 

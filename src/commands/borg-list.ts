@@ -15,12 +15,12 @@ class Reporters {
     console.log(JSON.stringify(bookmark));
   }
   static verbose(bookmark: any) {
-    let domain
+    let domain;
     try {
-      const parsed = new URL(bookmark.url)
+      const parsed = new URL(bookmark.url);
       domain = `${parsed.protocol}//${parsed.hostname}`;
     } catch (err) {
-      domain = "unknown"
+      domain = "unknown";
     }
 
     console.log([
